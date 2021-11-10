@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  	<meta charset="UTF-8">
+  	<title>jQuery</title>
+  	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css'>
+	<link rel='stylesheet' href='https://unicons.iconscout.com/release/v2.1.9/css/unicons.css'><link rel="stylesheet" href="./style.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#frm-mhs').validate(
+				{
+					rules: {
+						nim : {
+							digits: true,
+							minlength:14,
+							maxlength:14
+						},
+						tgl: {
+							indonesianDate: true
+						},
+						umur: {
+							digits: true,
+							range: [0,100]
+						},
+						email: {
+							email: true
+						},
+						situs: {
+							url: true
+						},
+						pass2: {
+							equalTo: "#pass1"
+						}
+					},
+					messages: {
+						nim: {
+							required: "Kolom nim harus diisi",
+							minlength: "Kolom nim harus terdiri dari 14 digit",
+							maxlength: "Kolom nim harus terdiri dari 10 digit"
+						},
+						email: {
+							required: "Alamat email harus diisi",
+							email: "Format email tidak valid"
+						},
+						pass2: {
+							equalTo: "Password tidak sama"
+						}
+					}
+				}
+			);
+		});
+
+		$.validator.addMethod("indonesianDate", function(value, element) {
+			return value.match(/^\d\d?\/\d\d?\/\d\d\d\d$/);
+		},
+		"Please enter a date in the format DD/MM/YYYY");
+	</script>
+</head>
+<body>
+	<div class="section">
+		<div class="container">
+			<div class="row full-height justify-content-center">
+				<div class="col-12 text-center align-self-center py-5">
+					<div class="section pb-5 pt-5 pt-sm-2 text-center">
+						<h6 class="mb-0 pb-3"><span>Add Book </span><span>Form Validation</span></h6>
+			          	<input class="checkbox" type="checkbox" id="reg-log" name="reg-log"/>
+			          	<label for="reg-log"></label>
+						<div class="card-3d-wrap mx-auto">
+							<div class="card-3d-wrapper">
+								<div class="card-front">
+									<div class="center-wrap">
+										<div class="section text-center">
+											<h4 class="mb-4 pb-3">Add New Book</h4>
+											<div class="form-group">
+												<input type="text" id="txtNewBook" class="form-style" placeholder="New Book Name" autocomplete="off">
+											</div>	
+											<div class="form-group mt-2">
+												<select id="DDLbook" class="form-style" placeholder="All Books">
+													<option value="">Select</option>
+												</select>
+											</div>
+											<input type="button" value="Add Book" id="btnAdd" class="btn mt-4"/>
+				      					</div>
+			      					</div>
+			      				</div>
+
+								<div class="card-back">
+									<div class="center-wrap">
+										<div class="section text-center">
+											<h4 class="mb-4 pb-3" style="padding-top: 50px; margin-top: 60px;">Input Data Mahasiswa</h4>
+											<div class="form-group">
+												<form action="proses.php" method="post" id="frm-mhs">
+													<input type="text" name="nim" class="form-style" placeholder="NIM" id="nim" autocomplete="off" maxlength="14" size="20" class="required">
+													<div class="form-group mt-2">
+														<input type="text" name="nama" class="form-style" placeholder="Nama" id="nama" autocomplete="off" size="30" class="required">
+
+													</div>	
+													<div class="form-group mt-2">
+														<input type="text" name="alamat" class="form-style" placeholder="Alamat" id="alamat" autocomplete="off" cols="40" rows="4" class="required" style="height: 50px;"></textarea>
+														
+													</div>
+													<div class="form-group mt-2">
+														<input type="text" name="tgl" class="form-style" placeholder="Tanggal Lahir" id="tgl" autocomplete="off" maxlength="10" size="15" class="required">
+														
+													</div>
+													<div class="form-group mt-2">
+														<input type="text" name="umur" class="form-style" placeholder="Umur" id="umur" autocomplete="off" maxlength="3" size="7" class="required">
+														
+													</div>
+													<div class="form-group mt-2">
+														<input type="text" name="email" class="form-style" placeholder="Alamat Email" id="email" autocomplete="off" size="50" class="required">
+														
+													</div>
+													<div class="form-group mt-2">
+														<input type="text" name="situs" class="form-style" placeholder="Alamat Situs" id="situs" autocomplete="off" size="50" class="required">
+														
+													</div>
+													<div class="form-group mt-2">
+														<input type="password" name="pass1" class="form-style" placeholder="Password" id="pass1" autocomplete="off" size="15" class="required">
+														
+													</div>
+													<div class="form-group mt-2">
+														<input type="password" name="pass2" class="form-style" placeholder="Ulangi Password" id="pass2" autocomplete="off" size="15" class="required">
+														
+													</div>
+													<input type="submit" name="Submit" value="Submit" class="btn mt-4"/>
+												</form>
+											</div>	
+				      					</div>
+			      					</div>
+			      				</div>
+			      			</div>
+			      		</div>
+			      	</div>
+		      	</div>
+	      	</div>
+	    </div>
+	</div>
+
+<script>
+	$('#btnAdd').click( function () {
+		var newbook = $('#txtNewBook').val();
+		$('#DDLbook').append(new Option(newbook, newbook));
+	});
+</script>
+
+</body>
+</html>
